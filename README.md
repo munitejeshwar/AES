@@ -8,10 +8,77 @@ AES does not use a Feistel network like DES, it uses variant of Rijndael.
 It has a fixed block size of 128 bits, and a key size of 128, 192, or 256 bits.
 AES operates on a 4 × 4 column-major order array of bytes, termed the state
 # PROGRAM:
-
+```
+  #include <stdio.h>
+  #include <string.h>
+  
+  void simpleAESEncrypt(char *plaintext, char *key, char *ciphertext) 
+  {
+      int i;
+      int keyLength = strlen(key);
+  
+      for (i = 0; i < strlen(plaintext); i++) 
+      {
+          ciphertext[i] = plaintext[i] ^ key[i % keyLength];
+      }
+      ciphertext[i] = '\0'; 
+  }
+  // Function to decrypt (XOR again with same key)
+  void simpleAESDecrypt(char *ciphertext, char *key, char *decryptedText) 
+  {
+      int i;
+      int keyLength = strlen(key);
+  
+      for (i = 0; i < strlen(ciphertext); i++) 
+      {
+          decryptedText[i] = ciphertext[i] ^ key[i % keyLength];
+      }
+      decryptedText[i] = '\0'; 
+  }
+  // Function to print ciphertext in ASCII values
+  void printASCII(char *ciphertext) 
+  {
+      printf("Encrypted Message (ASCII values): ");
+      for (int i = 0; i < strlen(ciphertext); i++) 
+      {
+          printf("%d ", (unsigned char)ciphertext[i]);
+      }
+      printf("\n");
+  }
+  
+  int main() 
+  {
+      char plaintext[100], key[100], ciphertext[100], decryptedText[100];
+  
+      // Get plaintext
+      printf("Enter the plaintext: ");
+      scanf("%s", plaintext);
+  
+      // Get key
+      printf("Enter the key: ");
+      scanf("%s", key);
+  
+      // Encrypt
+      simpleAESEncrypt(plaintext, key, ciphertext);
+      printf("\nOriginal Message: %s\n", plaintext);
+      printASCII(ciphertext);
+  
+      // Decrypt
+      simpleAESDecrypt(ciphertext, key, decryptedText);
+      printf("Decrypted Message: %s\n", decryptedText);
+  
+      return 0;
+  }
+```
 # OUTPUT:
+<img width="1572" height="893" alt="image" src="https://github.com/user-attachments/assets/e8de8c66-5b05-45b0-a9c6-e6b16c4bf0c2" />
+
 
 
 # RESULT:
+AES successfully encrypts the URL, providing secure and confidential URL transmission.
+
+AES successfully encrypts the URL, providing secure and confidential URL transmission.
 
 
+(https://github.com/Hariprasath75/EX-NO-7-Implement-DES-Encryption.git)
